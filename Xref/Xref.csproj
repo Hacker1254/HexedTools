@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HexedTools\ConsoleTool.csproj" />
+    <ProjectReference Include="..\Iced.Minimal\Iced.Minimal.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CoreRuntime">
+      <HintPath>..\..\..\..\Documents\HEXED\Settings\UnityLoader\vrchat\Runtime\CoreRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppInterop.Runtime">
+      <HintPath>..\..\..\..\Documents\HEXED\Settings\UnityLoader\vrchat\Runtime\Il2CppInterop.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2Cppmscorlib">
+      <HintPath>..\..\..\..\Documents\HEXED\Settings\UnityLoader\vrchat\Dummy\Il2Cppmscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem.Core">
+      <HintPath>..\..\..\..\Documents\HEXED\Settings\UnityLoader\vrchat\Dummy\Il2CppSystem.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(TargetPath)&quot; &quot;C:\Users\Braylon\Documents\HEXED\Settings\UnityLoader\vrchat\Runtime&quot; /Y /I" />
+  </Target>
+
+</Project>
