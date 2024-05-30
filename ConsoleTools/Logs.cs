@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using HexedTools.ModulesLibs;
 
@@ -10,7 +11,11 @@ public class Logs {
 
     public static string LogLocation { get; private set; } = PathDataInfo.RootFilePath + "\\Log.txt";
     public static Action<string> MessageCallBack = new((str) => {
-        if (!_firstCall) File.WriteAllText(LogLocation, ""); _firstCall = true;
+        if (!_firstCall) {
+            File.WriteAllText(LogLocation, "");
+            _firstCall = true;
+            Console.SetOut(new MethodCallTextWriter(MessageCallBack));
+        }
         try {
             File.AppendAllText(LogLocation, str);
         } catch (Exception e) {
@@ -145,5 +150,28 @@ public class Logs {
             return ConsoleColor.DarkMagenta;
         lastcolor = color;
         return color;
+    }
+}
+
+
+public class MethodCallTextWriter : TextWriter { // Basic use
+    private readonly Action<string> _outputMethod;
+
+    public MethodCallTextWriter(Action<string> outputMethod) {
+        _outputMethod = outputMethod;
+    }
+
+    public override Encoding Encoding => Encoding.Default;
+
+    public override void Write(char value) {
+        _outputMethod(value.ToString());
+    }
+
+    public override void Write(string value) {
+        _outputMethod(value);
+    }
+
+    public override void WriteLine(string value) {
+        _outputMethod(value + Environment.NewLine);
     }
 }
