@@ -15,7 +15,7 @@
       <HintPath>..\Runtime\CoreRuntime.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\Runtime\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\..\!EXO-Internal-Base\Dummy\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
   </ItemGroup>
 

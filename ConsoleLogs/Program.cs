@@ -25,8 +25,9 @@ class Program {
     public static extern bool SetConsoleMode(IntPtr hConsoleHandle, uint dwMode);
 
     // Grrr stfu i didn't spend anytime on this it doesn't matter
-    static void Main(string[] args) {
-        Console.Title = "ConsoleLogs - HEXED";
+    static void Main(string[] args) 
+    {
+        Console.Title = "Console - HEXED";
         Console.OutputEncoding = Encoding.Unicode;
 
         IntPtr hConsole = GetStdHandle(-11);
@@ -37,14 +38,16 @@ class Program {
         while (!File.Exists(filePath))
             Thread.Sleep(100);
 
-        FileSystemWatcher watcher = new() {
+        FileSystemWatcher watcher = new() 
+        {
             Path = Path.GetDirectoryName(filePath),
             Filter = Path.GetFileName(filePath),
             NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size,
             EnableRaisingEvents = true,
         };
 
-        watcher.Changed += (sender, e) => {
+        watcher.Changed += (sender, e) => 
+        {
             Thread.Sleep(100);
 
             string newText = ReadNewTextFromFile(filePath);
@@ -52,16 +55,21 @@ class Program {
                 Console.Write(newText);
         };
 
-        while (true) {
-            if (vrcWindow == null) {
+        while (true)
+        {
+            if (vrcWindow == null)
+            {
                 foreach (var proc in Process.GetProcesses())
-                    if (proc.ProcessName == "VRChat") {
+                    if (proc.ProcessName == "VRChat") 
+                    {
                         Console.Clear();
                         lastLength = 0L;
                         vrcWindow = proc;
                         Console.WriteLine($"Attached to {proc.Id}");
                     } 
-            } else if (vrcWindow.HasExited) {
+            } 
+            else if (vrcWindow.HasExited) 
+            {
                 lastLength = 0;
                 vrcWindow = null;
             }
@@ -69,12 +77,13 @@ class Program {
         }
     }
 
-    private static bool skip = true; // Skip first reset message 
+    private static readonly bool skip = true; // Skip first reset message 
 
     // Function to read the new text added to the file since the last check
     private static string ReadNewTextFromFile(string filePath) {
         string newText = "";
-        try {
+        try 
+        {
             long newLength = new FileInfo(filePath).Length;
 
             if (newLength > lastLength) {
@@ -87,11 +96,11 @@ class Program {
 
                 lastLength = newLength;
             }
-        } catch (Exception ex) {
-            Console.WriteLine("Error reading file: " + ex.Message);
-        }
+        } 
+        catch (Exception ex) { Console.WriteLine("Error reading file: " + ex.Message); }
 
-        if (newText.StartsWith("Clear")) { // Hopefully all logs should start with an escape for color
+        if (newText.StartsWith("Clear")) 
+        { // Hopefully all logs should start with an escape for color
             Console.Clear();
             Console.Write(string.Concat(newText.Skip("Clear".Length)));
             lastLength = new FileInfo(filePath).Length;
