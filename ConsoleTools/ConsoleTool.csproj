@@ -7,7 +7,16 @@
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(TargetPath)&quot; &quot;C:\Users\Braylon\Documents\HEXED\Settings\UnityLoader\vrchat\Runtime&quot; /Y /I" />
+    <Exec Command="xcopy &quot;$(TargetPath)&quot; &quot;D:\SteamLibrary\steamapps\common\VRChat\Hexed\Settings\UnityLoader\VRChat\Runtime&quot; /Y /I" />
   </Target>
+
+  <ItemGroup>
+    <Reference Include="CoreRuntime">
+      <HintPath>..\Runtime\CoreRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\Runtime\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 
 </Project>
